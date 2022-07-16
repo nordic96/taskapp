@@ -6,7 +6,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>nordic</groupId>
+    <groupId>com.nordic</groupId>
     <artifactId>taskapp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <dropwizard.version>2.0.0</dropwizard.version>
-        <mainClass>nordic.TaskApplication</mainClass>
+        <mainClass>com.nordic.TaskApplication</mainClass>
     </properties>
 
     <dependencyManagement>

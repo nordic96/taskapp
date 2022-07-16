@@ -1,4 +1,6 @@
-package nordic;
+package com.nordic;
+
+import com.nordic.resources.TaskResource;
 
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -24,6 +26,9 @@ public class TaskApplication extends Application<TaskApplicationConfiguration> {
     public void run(final TaskApplicationConfiguration configuration,
                     final Environment environment) {
         // TODO: implement application
+        final TaskResource taskResource = new TaskResource();
+
+        environment.jersey().register(taskResource);
     }
 
 }
