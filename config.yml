@@ -8,5 +8,5 @@ mongoDBConnection:
   port: 27017
   credentials:
     username: "appuser"
-    password: "nordic96"
+    password: "nordic"
   database: "taskdb"

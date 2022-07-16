@@ -26,7 +26,7 @@ public class MongoFactoryConnection {
         logger.info(mongoConnection.toString());
         final Credentials cred = mongoConnection.getCredentials();
 
-        final MongoCredential mongoCredentials = MongoCredential.createCredential(
+        final MongoCredential mongoCredentials = MongoCredential.createScramSha1Credential(
                 cred.getUsername(),
                 mongoConnection.getDatabase(),
                 cred.getPassword());
@@ -35,7 +35,9 @@ public class MongoFactoryConnection {
         MongoClientSettings settings = MongoClientSettings.builder()
                 .applyToClusterSettings(builder -> builder.hosts(Arrays.asList(server)))
                 .applyToSslSettings(builder -> builder.enabled(true))
+                .credential(mongoCredentials)
                 .build();
+
         MongoClient client = MongoClients.create(settings);
         return client;
     }
