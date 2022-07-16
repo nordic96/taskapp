@@ -10,19 +10,23 @@ import javax.ws.rs.core.MediaType;
 
 import com.codahale.metrics.annotation.Timed;
 import com.nordic.api.Task;
+import com.nordic.dao.TaskDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Path("/tasks")
 @Produces(MediaType.APPLICATION_JSON)
 public class TaskResource {
-    public TaskResource() {
+    private TaskDAO taskDAO;
+    private static final Logger logger = LoggerFactory.getLogger(TaskResource.class);
+    public TaskResource(final TaskDAO taskDAO) {
+        this.taskDAO = taskDAO;
     }
 
     @GET
     @Timed
     public List<Task> fetchTasks() {
-        Task testTask = new Task(1, false);
-        List<Task> tasks = new ArrayList<Task>();
-        tasks.add(testTask);
-        return tasks;
+        logger.info("Fetching all tasks");
+        return taskDAO.fetchTasks();
     }
 }

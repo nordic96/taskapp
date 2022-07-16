@@ -1,7 +1,10 @@
 package com.nordic;
 
+import com.mongodb.client.MongoClient;
+import com.nordic.dao.TaskDAO;
 import com.nordic.db.MongoFactoryConnection;
 import com.nordic.db.MongoManaged;
+import com.nordic.db.configuration.MongoDBConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,14 +34,20 @@ public class TaskApplication extends Application<TaskApplicationConfiguration> {
     @Override
     public void run(final TaskApplicationConfiguration config,
                     final Environment environment) {
-        logger.info(config.getMongoDBConnection().toString());
-        final MongoFactoryConnection mongoFactoryConnection = new MongoFactoryConnection(config.getMongoDBConnection());
-        final MongoManaged mongoManaged = new MongoManaged(mongoFactoryConnection.getClient());
+        logger.info("Instantiating Mongo DB Connection..");
+        final MongoDBConnection conn = config.getMongoDBConnection();
+        logger.info(conn.toString());
+        final MongoFactoryConnection mongoFactoryConnection = new MongoFactoryConnection(conn);
+        final MongoClient client = mongoFactoryConnection.getClient();
+        final MongoManaged mongoManaged = new MongoManaged(client);
+
+        final TaskDAO taskDAO = new TaskDAO(client.getDatabase(conn.getDatabase()).getCollection("taskmanagement"));
+
+        environment.lifecycle().manage(mongoManaged);
 
         logger.info("Registering Resources...");
-        final TaskResource taskResource = new TaskResource();
-        environment.lifecycle().manage(mongoManaged);
-        environment.jersey().register(taskResource);
+        logger.info("loading Task Resources");
+        environment.jersey().register(new TaskResource(taskDAO));
     }
 
 }
