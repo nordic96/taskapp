@@ -14,8 +14,10 @@ public class TaskMapper {
         boolean completed = taskDocument.getBoolean("completed");
         ObjectId id = taskDocument.getObjectId("_id");
         String desc = taskDocument.getString("desc");
-        final Task task = new Task(id, completed, desc);
-
+        final Task task = new Task();
+        task.setId(id);
+        task.setCompleted(completed);
+        task.setDesc(desc);
         return task;
     }
 }

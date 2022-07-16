@@ -1,21 +1,28 @@
 package com.nordic.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.nordic.params.ObjectIdSerializer;
 import org.bson.types.ObjectId;
 
+import javax.validation.constraints.NotNull;
+
 public class Task {
-    private final ObjectId id;
+    @JsonSerialize(using = ObjectIdSerializer.class)
+    private ObjectId id;
+    @NotNull
     private boolean completed;
+    @NotNull
     private String desc;
 
-    public Task(final ObjectId id, boolean completed, String desc) {
-        this.id = id;
-        this.completed = completed;
-        this.desc = desc;
-    }
+    public Task() {}
 
     public ObjectId getId() {
         return this.id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public boolean getCompleted() {
