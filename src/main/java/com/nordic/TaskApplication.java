@@ -5,6 +5,8 @@ import com.nordic.dao.TaskDAO;
 import com.nordic.db.MongoFactoryConnection;
 import com.nordic.db.MongoManaged;
 import com.nordic.db.configuration.MongoDBConnection;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +31,12 @@ public class TaskApplication extends Application<TaskApplicationConfiguration> {
     @Override
     public void initialize(final Bootstrap<TaskApplicationConfiguration> bootstrap) {
         // TODO: application initialization
+        bootstrap.addBundle(new SwaggerBundle<TaskApplicationConfiguration>() {
+            @Override
+            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(TaskApplicationConfiguration config) {
+                return config.getSwaggerBundleConfiguration();
+            }
+        });
     }
 
     @Override
