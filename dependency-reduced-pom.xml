@@ -122,6 +122,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <mongodb.version>4.6.0</mongodb.version>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <dropwizard.swagger.version>1.0.6-1</dropwizard.swagger.version>
+    <dropwizard.swagger.version>2.0.12-1</dropwizard.swagger.version>
   </properties>
 </project>

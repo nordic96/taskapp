@@ -10,3 +10,6 @@ mongoDBConnection:
     username: "appuser"
     password: "nordic"
   database: "taskdb"
+
+swagger:
+  resourcePackage: com.nordic.resources
