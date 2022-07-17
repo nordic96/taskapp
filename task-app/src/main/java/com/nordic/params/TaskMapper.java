@@ -18,6 +18,7 @@ public class TaskMapper {
         task.setId(id);
         task.setCompleted(completed);
         task.setDesc(desc);
+        task.setCreated(id.getDate());
         return task;
     }
 }

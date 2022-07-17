@@ -14,9 +14,9 @@
 }
 
 .App-header {
-  min-height: 100vh;
+  height: 96px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
@@ -24,6 +24,42 @@
 
 .App-link {
   color: rgb(112, 76, 182);
+}
+
+.PageContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  gap: 16px;
+}
+
+.NavMenu {
+  font-size: 18px;
+  text-decoration: none;
+  color: white;
+}
+
+.NavMenuSelected {
+  font-size: 18px;
+  text-decoration: none;
+  color: white;
+  background-color: #127458;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.NavMenu:hover {
+  color: #127458;
+}
+
+.TrailerImg {
+  background-color: #fff;
+  height: 100%;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.TrailerImg:hover {
+  opacity: 0;
 }
 
 @keyframes App-logo-float {

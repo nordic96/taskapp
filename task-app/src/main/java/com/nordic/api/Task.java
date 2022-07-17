@@ -6,6 +6,7 @@ import com.nordic.params.ObjectIdSerializer;
 import org.bson.types.ObjectId;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 public class Task {
     @JsonSerialize(using = ObjectIdSerializer.class)
@@ -14,6 +15,8 @@ public class Task {
     private boolean completed;
     @NotNull
     private String desc;
+
+    private Date created;
 
     public Task() {}
 
@@ -39,5 +42,13 @@ public class Task {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public Date getCreated() {
+        return this.created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }
