@@ -1,7 +1,8 @@
 import React from 'react';
 /** Components */
 import { Box } from '@mui/system';
-import { Checkbox, Divider, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Checkbox, Divider, IconButton, Typography } from '@mui/material';
 
 import { format } from 'date-fns';
 
@@ -14,7 +15,7 @@ import { Task } from '../../services/tasks/types';
 
 /** Redux */
 import { useAppThunkDispatch } from '../../app/hooks';
-import { updateTask } from '../../features/tasks/taskReducer';
+import { deleteTask, updateTask } from '../../features/tasks/taskReducer';
 import { TaskCompletedColor, TaskIncompleteColor } from '../../constants/taskstatus';
 
 const TaskBox = (props: TaskBoxProps) => {
@@ -27,9 +28,13 @@ const TaskBox = (props: TaskBoxProps) => {
         thunkDispatch(updateTask(newTask));
     };
 
+    const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        thunkDispatch(deleteTask(task.id));
+    };
+
     return (
         <Box sx={TaskBoxStyle(task.completed ? TaskCompletedColor : TaskIncompleteColor )}>
-            {/* <Typography variant={'h4'}>{'To Do Task'}</Typography> */}
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -42,6 +47,9 @@ const TaskBox = (props: TaskBoxProps) => {
             </Box>
             <Box sx={{ display: 'flex', flex: 1 }}>
                 <Checkbox checked={task.completed} color="success" onClick={onToggle} />
+                <IconButton onClick={onDelete}>
+                    <DeleteIcon />
+                </IconButton>
             </Box>
         </Box>
     );
