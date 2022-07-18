@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { Box, Button } from '@mui/material';
 import TaskBox from '../../components/TaskBox';
 import TaskTemplate from '../../components/TaskTemplate';
+import Loading from '../../components/Loading';
 
 import { useAppDispatch, useAppSelector, useAppThunkDispatch } from '../../app/hooks';
 import { fetchTasks, TaskActions } from '../../features/tasks/taskReducer';
@@ -15,6 +16,7 @@ const Home = () => {
     const { tasks, loading, createOpen } = state;
 
     useEffect(() => {
+        if (createOpen) return;
         thunkDispatch(fetchTasks());
     }, [createOpen, thunkDispatch]);
 
@@ -33,7 +35,8 @@ const Home = () => {
         }}>
             <Button onClick={onClickCreate}>Create New Task</Button>
             {createOpen && <TaskTemplate />}
-            {tasks.map((task, i) => {
+            {loading && <Loading />}
+            {!loading && tasks.map((task, i) => {
                 return <TaskBox key={i} task={task} />
             })}
         </Box>

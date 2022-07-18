@@ -4,11 +4,12 @@ import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 
 const pageStyle: SxProps = {
     position: 'absolute',
-    top: 96,
-    bottom: 52,
+    top: 80,
     width: '100%',
+    // height: '100vh',
+    padding: '16px 24px 32px 24px',
     overflowY: 'auto',
-    backgroundColor: '#fafafa',
+    // backgroundColor: '#fafafa',
 };
 
 /**
