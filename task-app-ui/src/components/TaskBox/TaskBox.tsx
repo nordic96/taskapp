@@ -10,11 +10,25 @@ import { TaskBoxStyle } from './styles';
 
 /** Types */
 import { TaskBoxProps } from './types';
+import { Task } from '../../services/tasks/types';
+
+/** Redux */
+import { useAppThunkDispatch } from '../../app/hooks';
+import { updateTask } from '../../features/tasks/taskReducer';
+import { TaskCompletedColor, TaskIncompleteColor } from '../../constants/taskstatus';
 
 const TaskBox = (props: TaskBoxProps) => {
     const { task } = props;
+    const thunkDispatch = useAppThunkDispatch();
+
+    const onToggle = () => {
+        const newTask: Task = Object.assign({}, task);
+        newTask.completed = !task.completed;
+        thunkDispatch(updateTask(newTask));
+    };
+
     return (
-        <Box sx={TaskBoxStyle('#f29339')}>
+        <Box sx={TaskBoxStyle(task.completed ? TaskCompletedColor : TaskIncompleteColor )}>
             {/* <Typography variant={'h4'}>{'To Do Task'}</Typography> */}
             <Box sx={{
                 display: 'flex',
@@ -27,7 +41,7 @@ const TaskBox = (props: TaskBoxProps) => {
                 <Typography color={'#333'} fontStyle={'italic'} variant={'caption'}>{`Created on ${format(task.created, 'dd MMM yyyy HH:mm:ss')}`}</Typography>
             </Box>
             <Box sx={{ display: 'flex', flex: 1 }}>
-                <Checkbox defaultChecked color="success" />
+                <Checkbox checked={task.completed} color="success" onClick={onToggle} />
             </Box>
         </Box>
     );
