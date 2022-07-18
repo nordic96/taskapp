@@ -1,0 +1,15 @@
+logging:
+  level: INFO
+  loggers:
+    com.nordic: DEBUG
+
+mongoDBConnection:
+  host: "cluster0-shard-00-02.3pinb.mongodb.net"
+  port: 27017
+  credentials:
+    username: "appuser"
+    password: "nordic"
+  database: "taskdb"
+
+swagger:
+  resourcePackage: com.nordic.resources
