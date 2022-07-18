@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { AxiosResponse } from 'axios';
+import React, { useEffect } from 'react';
 
-import taskService from '../../services/tasks';
-import { Task } from '../../services/tasks/types';
-import { Box } from '@mui/material';
+/** Components */
+import { Box, Button } from '@mui/material';
 import TaskBox from '../../components/TaskBox';
+import TaskTemplate from '../../components/TaskTemplate';
+
+import { useAppDispatch, useAppSelector, useAppThunkDispatch } from '../../app/hooks';
+import { fetchTasks, TaskActions } from '../../features/tasks/taskReducer';
 
 const Home = () => {
-    const [tasks, setTasks] = useState<Task[]>([]);
+    const state = useAppSelector((s) => s.page_task);
+    const thunkDispatch = useAppThunkDispatch();
+    const dispatch = useAppDispatch();
+    const { tasks, loading, createOpen } = state;
+
     useEffect(() => {
-        const handleFetchTasks = (res: AxiosResponse<Task[]>) => {
-            if (res.status === 200) {
-                console.log(res);
-                setTasks(res.data || []);
-            }
-        };
-        taskService.fetchTask().then(handleFetchTasks);
-    }, []);
+        thunkDispatch(fetchTasks());
+    }, [createOpen, thunkDispatch]);
+
+    const onClickCreate = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        dispatch({ type: TaskActions.SET_CREATE_OPEN, data: true });
+    };
+
     return (
         <Box sx={{
             display: 'flex',
@@ -25,6 +31,8 @@ const Home = () => {
             flexDirection: 'column',
             gap: 2,
         }}>
+            <Button onClick={onClickCreate}>Create New Task</Button>
+            {createOpen && <TaskTemplate />}
             {tasks.map((task, i) => {
                 return <TaskBox key={i} task={task} />
             })}

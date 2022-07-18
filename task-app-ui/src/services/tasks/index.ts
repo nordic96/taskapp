@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { Task } from './types';
+import { Task, TaskRequest } from './types';
 
 const BASE = '/tasks';
 const URL_CREATE = `${BASE}/action/add`
@@ -9,7 +9,7 @@ const fetchTask = (): Promise<AxiosResponse<Task[]>> => {
     return axios.get(BASE);
 };
 
-const createTask = (task: Task): Promise<AxiosResponse<string>> => {
+const createTask = (task: TaskRequest): Promise<AxiosResponse<string>> => {
     return axios.post(URL_CREATE, task);
 };
 
