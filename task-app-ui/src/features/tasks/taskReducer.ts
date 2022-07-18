@@ -98,4 +98,16 @@ export const updateTask = (newTask: Task): AppThunk => async (dispatch: AppThunk
     await taskService.updateTask(newTask).then(handleUpdateTask);
 };
 
+export const deleteTask = (id: string): AppThunk => async (dispatch: AppThunkDispatch) => {
+    const handleDeleteTask = (res: AxiosResponse<string>) => {
+        if (res.status === 200) {
+            /** TODO: show snackbar */
+        }
+        dispatch({ type: TaskActions.SET_LOADING, data: false });
+        dispatch({ type: TaskActions.INCREMENT });
+    }
+    dispatch({ type: TaskActions.SET_LOADING, data: true });
+    await taskService.deleteTask(id).then(handleDeleteTask);
+};
+
 export default reducer;
