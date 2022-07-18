@@ -13,12 +13,12 @@ const Home = () => {
     const state = useAppSelector((s) => s.page_task);
     const thunkDispatch = useAppThunkDispatch();
     const dispatch = useAppDispatch();
-    const { tasks, loading, createOpen } = state;
+    const { tasks, loading, createOpen, count } = state;
 
     useEffect(() => {
         if (createOpen) return;
         thunkDispatch(fetchTasks());
-    }, [createOpen, thunkDispatch]);
+    }, [createOpen, thunkDispatch, count]);
 
     const onClickCreate = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -33,7 +33,7 @@ const Home = () => {
             flexDirection: 'column',
             gap: 2,
         }}>
-            <Button onClick={onClickCreate}>Create New Task</Button>
+            <Button onClick={onClickCreate} disabled={createOpen}>Create New Task</Button>
             {createOpen && <TaskTemplate />}
             {loading && <Loading />}
             {!loading && tasks.map((task, i) => {

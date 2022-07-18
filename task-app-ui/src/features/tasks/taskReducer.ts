@@ -10,24 +10,28 @@ export interface TaskState {
     tasks: Task[],
     loading: boolean;
     createOpen: boolean;
+    count: number;
 }
 
 export const initialState: TaskState = {
     tasks: [],
     loading: false,
     createOpen: false,
+    count: 0,
 };
 
 export enum TaskActions {
     SET_TASKS = 'tasks/SET_TASKS',
     SET_LOADING =  'tasks/SET_LOADING',
     SET_CREATE_OPEN = 'tasks/SET_CREATE_OPEN',
+    INCREMENT = 'tasks/UPDATE_INCREMENT',
 }
 
 export type TaskAction =
     | { type: TaskActions.SET_TASKS, data: Task[] }
     | { type: TaskActions.SET_LOADING, data: boolean }
-    | { type: TaskActions.SET_CREATE_OPEN, data: boolean };
+    | { type: TaskActions.SET_CREATE_OPEN, data: boolean }
+    | { type: TaskActions.INCREMENT };
 
 const reducer: Reducer<TaskState, any> = (state = initialState, action: TaskAction) => {
     switch (action.type) {
@@ -37,6 +41,8 @@ const reducer: Reducer<TaskState, any> = (state = initialState, action: TaskActi
             return { ...state, loading: action.data };
         case TaskActions.SET_CREATE_OPEN:
             return { ...state, createOpen: action.data };
+        case TaskActions.INCREMENT:
+            return { ...state, count: state.count + 1 };
         default:
             return state;
     }
@@ -78,6 +84,18 @@ export const createTask = (task: Task): AppThunk => async (dispatch: AppThunkDis
         dispatch({ type: TaskActions.SET_CREATE_OPEN, data: false });
     };
     await taskService.createTask(taskRequest).then(handleCreateTask);
+};
+
+export const updateTask = (newTask: Task): AppThunk => async (dispatch: AppThunkDispatch) => {
+    const handleUpdateTask = (res: AxiosResponse<string>) => {
+        if (res.status === 200) {
+            /** TODO: show snackbar */
+        }
+        dispatch({ type: TaskActions.SET_LOADING, data: false });
+        dispatch({ type: TaskActions.INCREMENT });
+    };
+    dispatch({ type: TaskActions.SET_LOADING, data: true });
+    await taskService.updateTask(newTask).then(handleUpdateTask);
 };
 
 export default reducer;
