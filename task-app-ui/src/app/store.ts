@@ -1,9 +1,10 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore, ThunkAction, Action, ThunkDispatch, AnyAction } from '@reduxjs/toolkit';
+
+import TaskReducer from '../features/tasks/taskReducer';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    page_task: TaskReducer,
   },
 });
 
@@ -12,6 +13,7 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,
-  unknown,
+  null,
   Action<string>
 >;
+export type AppThunkDispatch = ThunkDispatch<RootState, null, AnyAction>;
