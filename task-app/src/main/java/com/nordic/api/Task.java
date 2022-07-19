@@ -1,6 +1,5 @@
 package com.nordic.api;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nordic.params.ObjectIdSerializer;
 import org.bson.types.ObjectId;
