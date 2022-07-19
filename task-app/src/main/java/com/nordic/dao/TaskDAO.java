@@ -49,7 +49,7 @@ public class TaskDAO {
      * @return InsertOneResult from MongoDB
      */
     public InsertOneResult insertTask(final Task task) {
-        final Document document = new Document("completed", task.getCompleted()).append("desc", task.getDesc());
+        final Document document = new Document("completed", task.getCompleted()).append("desc", task.getDesc()).append("due", task.getDue());
         return taskCollection.insertOne(document);
     }
 
@@ -60,7 +60,7 @@ public class TaskDAO {
      */
     public UpdateResult updateTask(final ObjectId id, final Task task) {
         Bson filter = Filters.eq("_id", id);
-        Document update = new Document("desc", task.getDesc()).append("completed", task.getCompleted());
+        Document update = new Document("desc", task.getDesc()).append("completed", task.getCompleted()).append("due", task.getDue());
         ReplaceOptions options = new ReplaceOptions().upsert(true);
 
         return taskCollection.replaceOne(filter, update, options);

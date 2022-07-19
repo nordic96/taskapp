@@ -18,6 +18,9 @@ public class Task {
 
     private Date created;
 
+    private Date due;
+
+
     public Task() {}
 
     public ObjectId getId() {
@@ -50,5 +53,13 @@ public class Task {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public Date getDue() {
+        return this.due;
+    }
+
+    public void setDue(Date due) {
+        this.due = due;
     }
 }
