@@ -23,7 +23,7 @@ jobs:
         run: mvn --batch-mode --update-snapshots clean package
       - name: Run JAR
         working-directory: ./task-app/
-        run: java -jar target/taskapp-1.0-SNAPSHOT.jar server ./config.yml
+        run: java -jar target/taskapp-1.0-SNAPSHOT.jar server ./config.yml &
 
       - name: Cypress Run
         uses: cypress-io/github-action@v4
