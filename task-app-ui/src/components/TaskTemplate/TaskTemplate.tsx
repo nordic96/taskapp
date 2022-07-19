@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
 import { TaskBoxStyle } from '../TaskBox/styles';
-import { isValid, parse } from 'date-fns';
+import { getUnixTime, isValid, parse } from 'date-fns';
 
 import { useAppDispatch, useAppThunkDispatch } from '../../app/hooks';
 import { createTask, TaskActions } from '../../features/tasks/taskReducer';
@@ -45,8 +45,8 @@ const TaskTemplate = () => {
     };
 
     const onSave = (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!desc) return;
-        const newTask: Task = { id: '', desc, completed: false, created: 0 };
+        if (!desc || !dateStr) return;
+        const newTask: Task = { id: '', desc, completed: false, created: 0, due: getUnixTime(parse(dateStr, 'dd-MM-yyyy', new Date())) };
         thunkDispatch(createTask(newTask));
     };
 
@@ -64,6 +64,7 @@ const TaskTemplate = () => {
                     </Typography>
                 </Box>
                 <TextField
+                    size={'small'}
                     fullWidth
                     required
                     error={!validateDescStr()}
@@ -73,6 +74,7 @@ const TaskTemplate = () => {
                     onChange={onChangeDesc}
                 />
                 <TextField
+                    size={'small'}
                     error={!validateDateStr()}
                     fullWidth
                     required
