@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 /** Components */
+import EditIcon from '@mui/icons-material/Edit';
 import { Box } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Checkbox, Divider, IconButton, Typography } from '@mui/material';
+import { Button, Checkbox, Divider, IconButton, TextField, Typography } from '@mui/material';
 
-import { format } from 'date-fns';
+import { format, fromUnixTime } from 'date-fns';
 
 /** Styles */
 import { TaskBoxStyle } from './styles';
@@ -20,6 +22,8 @@ import { TaskCompletedColor, TaskIncompleteColor } from '../../constants/tasksta
 
 const TaskBox = (props: TaskBoxProps) => {
     const { task } = props;
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const [newDesc, setNewDesc] = useState<string>(task.desc);
     const thunkDispatch = useAppThunkDispatch();
 
     const onToggle = () => {
@@ -33,6 +37,29 @@ const TaskBox = (props: TaskBoxProps) => {
         thunkDispatch(deleteTask(task.id));
     };
 
+    const onClickEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setEditMode(true);
+    };
+
+    const onChangeDesc = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setNewDesc(e.target.value);
+    };
+
+    const onClickSave = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        const newTask: Task = Object.assign({}, task);
+        newTask.desc = newDesc;
+        thunkDispatch(updateTask(newTask));
+    };
+
+    const onCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setNewDesc(task.desc);
+        setEditMode(false);
+    };
+
     return (
         <Box sx={TaskBoxStyle(task.completed ? TaskCompletedColor : TaskIncompleteColor )}>
             <Box sx={{
@@ -41,15 +68,48 @@ const TaskBox = (props: TaskBoxProps) => {
                 gap: 1,
                 flex: 9,
             }}>
-                <Typography color={'#333'} variant={'body1'}>{task.desc}</Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', gap: 2 }}>
+                    <Typography minWidth={120} fontSize={14} color={'#333'} variant={'body1'}>
+                        {`Due ${format(fromUnixTime(task.due), 'dd MMM yy')}`}
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start' }}>
+                        {editMode 
+                            ? <Box>
+                                <TextField size={'small'} defaultValue={task.desc} onChange={onChangeDesc} />                                
+                              </Box>
+                            : <Typography textAlign={'left'} color={'#333'} variant={'body2'}>
+                                {task.desc}
+                              </Typography>
+                        }
+                    </Box>
+                </Box>
                 <Divider variant={'middle'} />
-                <Typography color={'#333'} fontStyle={'italic'} variant={'caption'}>{`Created on ${format(task.created, 'dd MMM yyyy HH:mm:ss')}`}</Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', }}>
+                    <Typography color={'#888'} fontStyle={'italic'} variant={'caption'}>
+                        {`Created on ${format(task.created, 'dd MMM yyyy HH:mm:ss')}`}
+                    </Typography>
+                </Box>
             </Box>
-            <Box sx={{ display: 'flex', flex: 1 }}>
-                <Checkbox checked={task.completed} color="success" onClick={onToggle} />
-                <IconButton onClick={onDelete}>
-                    <DeleteIcon />
-                </IconButton>
+            <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                <Box display={'flex'}>
+                    <Checkbox checked={task.completed} color="success" onClick={onToggle} disabled={editMode} />
+                    <IconButton onClick={onClickEdit} disabled={editMode}>
+                        <EditIcon fontSize='small'/>
+                    </IconButton>
+                    <IconButton onClick={onDelete} disabled={editMode}>
+                        <DeleteIcon fontSize={'small'} />
+                    </IconButton>
+                </Box>
+                {editMode &&
+                    <Box display={'flex'}>
+                        <Button size={'small'} onClick={onClickSave}>
+                            Save
+                        </Button>
+                        <Button size={'small'} onClick={onCancel}>
+                            Cancel
+                        </Button>
+                    </Box>
+                }
             </Box>
         </Box>
     );

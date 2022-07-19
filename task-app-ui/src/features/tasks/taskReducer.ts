@@ -76,6 +76,7 @@ export const createTask = (task: Task): AppThunk => async (dispatch: AppThunkDis
         completed: task.completed,
         created: Math.floor(now / 1000),
         desc: task.desc,
+        due: task.due,
     });
     const handleCreateTask = (res: AxiosResponse<string>) => {
         if (res.status === 200) {
