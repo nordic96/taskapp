@@ -56,7 +56,7 @@ const TaskTemplate = () => {
     };
 
     return (
-        <Box sx={TaskBoxStyle('#333')}>
+        <Box id={'create-task-template'} sx={TaskBoxStyle('#333')}>
             <Box display={'flex'} flexDirection={'column'} gap={2} width={'100%'}>
                 <Box display={'flex'} alignItems={'flex-start'}>
                     <Typography color={'#333'} variant={'body1'}>
@@ -68,7 +68,7 @@ const TaskTemplate = () => {
                     fullWidth
                     required
                     error={!validateDescStr()}
-                    id="outlined-required"
+                    id="input-text-desc"
                     label="Description"
                     value={desc}
                     onChange={onChangeDesc}
@@ -80,15 +80,15 @@ const TaskTemplate = () => {
                     required
                     value={dateStr}
                     onChange={onChange}
-                    id="outlined-required"
+                    id="input-text-due"
                     label="Due Date dd-MM-yyyy"
                     helperText={!validateDateStr() ? 'Incorrect date format' : ''}
                 />
                 <Box>
-                    <Button disabled={!validateDateStr() || !validateDescStr()} onClick={onSave}>
+                    <Button id={'btn-save-task'} disabled={!validateDateStr() || !validateDescStr()} onClick={onSave}>
                         Save
                     </Button>
-                    <Button onClick={onCancel}>Cancel</Button>
+                    <Button id={'btn-cancel-task'} onClick={onCancel}>Cancel</Button>
                 </Box>
             </Box>
         </Box>

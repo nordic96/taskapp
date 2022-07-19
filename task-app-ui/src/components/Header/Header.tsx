@@ -9,7 +9,7 @@ import { HeaderStyles } from './styles';
 
 const Header = () => {
     return (
-        <AppBar sx={HeaderStyles}>
+        <AppBar id={'task-app-header'} sx={HeaderStyles}>
             <Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
                 <img src={logo} style={{ width: 56, height: 56 }} className="App-logo" alt="logo" />
                 <NavLink style={{ fontSize: 28, fontWeight: 'bold' }} id={'nav-home'} className={'NavMenu'} to={'/'}>{'Task Management'}</NavLink>
