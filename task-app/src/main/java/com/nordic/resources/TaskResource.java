@@ -48,12 +48,12 @@ public class TaskResource {
     @Timed
     @Path("/action/add")
     @ApiOperation(value = "Create new task and add it to Task Collections", notes = "Single update operation")
-    @ApiResponses(value = { @ApiResponse(code = 500, message = "Unable to create task"), @ApiResponse(code = 200, message = "Success") })
+    @ApiResponses(value = { @ApiResponse(code = 500, message = "Unable to create task"), @ApiResponse(code = 200, message = "Unix Time value of created task") })
     public Response createTask(@NotNull final Task task) {
         logger.info("Creating new Task");
         InsertOneResult result = taskDAO.insertTask(task);
         if (result.wasAcknowledged()) {
-            return Response.ok("Success").build();
+            return Response.ok(task.getCreated()).build();
         }
         return Response.status(500, "Unable to create task").build();
     }
@@ -62,25 +62,25 @@ public class TaskResource {
     @Timed
     @Path("/action/update/{id}")
     @ApiOperation(value = "Update existing task in collection using given id", notes = "single operation, id must be valid")
-    @ApiResponses(value = { @ApiResponse(code = 500, message = "Unable to update"), @ApiResponse(code = 200, message = "Success") })
+    @ApiResponses(value = { @ApiResponse(code = 500, message = "Unable to update"), @ApiResponse(code = 200, message = "Unix Time value of updated task") })
     public Response updateTask(@ApiParam(value = "task id to be updated", required = true) @PathParam("id") @NotNull final ObjectId id, @NotNull final Task task) {
         logger.info("Update Task");
         UpdateResult result = taskDAO.updateTask(id, task);
         if (result.wasAcknowledged() && result.getMatchedCount() <= 0) {
             return Response.status(500, "Unable to update").build();
         }
-        return Response.ok("Success").build();
+        return Response.ok(task.getCreated()).build();
     }
 
     @DELETE
     @Timed
     @Path("/action/delete/{id}")
     @ApiOperation(value = "Delete single Task by ID", notes = "single operation, id must be valid")
-    @ApiResponses(value = { @ApiResponse(code = 500, message = "Unable to delete"), @ApiResponse(code = 200, message = "Success") })
+    @ApiResponses(value = { @ApiResponse(code = 500, message = "Unable to delete"), @ApiResponse(code = 200, message = "ID of deleted task") })
     public Response deleteTask(@ApiParam(value = "task id to be deleted", required = true) @PathParam("id") @NotNull final ObjectId id) {
         DeleteResult result = taskDAO.deleteTask(id);
         if (result.wasAcknowledged()) {
-            return Response.ok("Success").build();
+            return Response.ok(id).build();
         }
         return Response.status(500, "Unable to delete").build();
     }
