@@ -33,7 +33,9 @@ const Home = () => {
             flexDirection: 'column',
             gap: 2,
         }}>
-            <Button onClick={onClickCreate} disabled={createOpen}>Create New Task</Button>
+            <Button id={'btn-create-task'} onClick={onClickCreate} disabled={createOpen}>
+                Create New Task
+            </Button>
             {createOpen && <TaskTemplate />}
             {loading && <Loading />}
             {!loading && tasks.map((task, i) => {

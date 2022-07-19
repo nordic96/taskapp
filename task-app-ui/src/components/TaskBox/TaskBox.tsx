@@ -61,7 +61,7 @@ const TaskBox = (props: TaskBoxProps) => {
     };
 
     return (
-        <Box sx={TaskBoxStyle(task.completed ? TaskCompletedColor : TaskIncompleteColor )}>
+        <Box id={`taskbox-${task.created}`} sx={TaskBoxStyle(task.completed ? TaskCompletedColor : TaskIncompleteColor )}>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -96,7 +96,7 @@ const TaskBox = (props: TaskBoxProps) => {
                     <IconButton onClick={onClickEdit} disabled={editMode}>
                         <EditIcon fontSize='small'/>
                     </IconButton>
-                    <IconButton onClick={onDelete} disabled={editMode}>
+                    <IconButton id={`btn-delete-task-${task.created}`} onClick={onDelete} disabled={editMode}>
                         <DeleteIcon fontSize={'small'} />
                     </IconButton>
                 </Box>
