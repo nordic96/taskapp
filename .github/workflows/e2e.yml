@@ -31,9 +31,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          working-directory: ./task-app-ui/
-      - run: npm i
-      - run: npm test
+          working-directory: ./task-app-ui
+      - name: NPM install
+        run: npm i
+        working-directory: ./task-app-ui
+      - name: NPM Test
+        working-directory: ./task-app-ui
+        run: npm test
 
       - name: Cypress Run
         uses: cypress-io/github-action@v4
