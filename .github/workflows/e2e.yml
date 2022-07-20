@@ -11,6 +11,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x, 15.x]
+
     steps:
       - uses: actions/checkout@v3
       - name: Setup JdK 11
@@ -24,6 +29,14 @@ jobs:
       - name: Run JAR
         working-directory: ./task-app/
         run: java -jar target/taskapp-1.0-SNAPSHOT.jar server ./config.yml &
+
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm i
+      - run: npm test
 
       - name: Cypress Run
         uses: cypress-io/github-action@v4
