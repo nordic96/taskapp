@@ -5,7 +5,8 @@ const config = {
         "<rootDir>/src/setupTests.ts"
     ],
     moduleNameMapper: {
-        "\\.(css|less|scss)$": "identity-obj-proxy"
+        "\\.(css|less|scss)$": "identity-obj-proxy",
+        "^.+\\.svg$": "jest-svg-transformer"
     },
     transform: {
         "^.+\\.tsx?$": "ts-jest",
