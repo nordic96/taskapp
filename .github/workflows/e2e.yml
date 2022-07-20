@@ -11,6 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-18.04
+
     steps:
       - uses: actions/checkout@v3
       - name: Setup JdK 11
@@ -24,6 +25,19 @@ jobs:
       - name: Run JAR
         working-directory: ./task-app/
         run: java -jar target/taskapp-1.0-SNAPSHOT.jar server ./config.yml &
+
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          working-directory: ./task-app-ui
+      - name: NPM install
+        run: npm i
+        working-directory: ./task-app-ui
+      - name: NPM Test
+        working-directory: ./task-app-ui
+        run: npm test
 
       - name: Cypress Run
         uses: cypress-io/github-action@v4
