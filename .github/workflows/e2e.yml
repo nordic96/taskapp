@@ -12,10 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-18.04
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-
     steps:
       - uses: actions/checkout@v3
       - name: Setup JdK 11
@@ -31,10 +27,10 @@ jobs:
         run: java -jar target/taskapp-1.0-SNAPSHOT.jar server ./config.yml &
 
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16.x
           working-directory: ./task-app-ui/
       - run: npm i
       - run: npm test
