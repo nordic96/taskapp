@@ -5,6 +5,7 @@ import com.nordic.dao.TaskDAO;
 import com.nordic.db.MongoFactoryConnection;
 import com.nordic.db.MongoManaged;
 import com.nordic.db.configuration.MongoDBConnection;
+import com.nordic.health.DBHealthCheck;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.slf4j.Logger;
@@ -48,6 +49,9 @@ public class TaskApplication extends Application<TaskApplicationConfiguration> {
         final MongoFactoryConnection mongoFactoryConnection = new MongoFactoryConnection(conn);
         final MongoClient client = mongoFactoryConnection.getClient();
         final MongoManaged mongoManaged = new MongoManaged(client);
+
+        /** Health Check Registry */
+        environment.healthChecks().register("database", new DBHealthCheck(mongoFactoryConnection));
 
         final TaskDAO taskDAO = new TaskDAO(client.getDatabase(conn.getDatabase()).getCollection("taskmanagement"));
 
