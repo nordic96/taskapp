@@ -10,5 +10,5 @@ RUN mvn -f pom.xml clean package
 FROM openjdk:11-jdk-slim
 COPY --from=build /workspace/target/*.jar app.jar
 COPY --from=build /workspace/config.yml config.yml
-EXPOSE 8080
+EXPOSE 8080 8081
 ENTRYPOINT ["java", "-jar", "app.jar", "server", "config.yml"]
