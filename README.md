@@ -13,6 +13,8 @@ Below is the tech stack and major dependencies used for developing this applicat
 1. Deployment: Docker
 1. CI/CD: Github Actions
 
+![task app screenshot](documents/images/taskapp_screenshot.png "Task App Screenshot")
+
 ## 1. Project Environment Setup and Running
 > pre-requisite: Docker machine is required to be installed in your machine to run it locally.
 
