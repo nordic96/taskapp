@@ -6,6 +6,9 @@ import logo from '../../logo.svg';
 
 import { HeaderStyles } from './styles';
 
+/**
+ * Application Header Component
+ */
 const Header = () => {
     return (
         <AppBar id={'task-app-header'} sx={HeaderStyles}>
@@ -19,4 +22,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default React.memo(Header);

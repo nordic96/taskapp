@@ -10,6 +10,10 @@ import { createTask, TaskActions } from '../../features/tasks/taskReducer';
 
 import { Task } from '../../services/tasks/types';
 
+/**
+ * Task Box Component for creating a new Task with multiple inputs and validation
+ * @returns Task Template Component
+ */
 const TaskTemplate = () => {
     const [dateStr, setDateStr] = useState<string>();
     const [desc, setDesc] = useState<string>();
