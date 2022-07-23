@@ -1,6 +1,5 @@
 package com.nordic.api;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nordic.params.ObjectIdSerializer;
 import org.bson.types.ObjectId;
@@ -8,6 +7,9 @@ import org.bson.types.ObjectId;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+/**
+ * POJO Model for Task Entity
+ */
 public class Task {
     @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;

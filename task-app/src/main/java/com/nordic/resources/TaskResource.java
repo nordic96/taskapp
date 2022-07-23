@@ -1,6 +1,5 @@
 package com.nordic.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -20,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/tasks")
-@Api(value = "/tasks", tags = "Task")
+@Api(value = "/tasks", tags = "Task", description = "operations related to tasks")
 @Produces(MediaType.APPLICATION_JSON)
 public class TaskResource {
     private TaskDAO taskDAO;

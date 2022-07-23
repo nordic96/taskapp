@@ -20,6 +20,11 @@ import { useAppThunkDispatch } from '../../app/hooks';
 import { deleteTask, updateTask } from '../../features/tasks/taskReducer';
 import { TaskCompletedColor, TaskIncompleteColor } from '../../constants/taskstatus';
 
+/**
+ * Task Box Component which handles displaying Task entity model data to UI
+ * @param props TaskBoxProps
+ * @returns Task Box Component
+ */
 const TaskBox = (props: TaskBoxProps) => {
     const { task } = props;
     const [editMode, setEditMode] = useState<boolean>(false);

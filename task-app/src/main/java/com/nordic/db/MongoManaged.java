@@ -4,6 +4,9 @@ import com.mongodb.client.MongoClient;
 
 import io.dropwizard.lifecycle.Managed;
 
+/**
+ * Managed Implementation using MongoDB Client instance
+ */
 public class MongoManaged implements Managed {
     private MongoClient mongoClient;
 
