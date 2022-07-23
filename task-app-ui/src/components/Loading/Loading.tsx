@@ -24,7 +24,7 @@ const LoadingBox = () => {
 const Loading = () => {
     return (
         <Box id={'loading-container'} sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            {new Array(4).fill(0).map((x, i) => {
+            {new Array(7).fill(0).map((x, i) => {
                 return <LoadingBox key={i} />;
             })}
         </Box>

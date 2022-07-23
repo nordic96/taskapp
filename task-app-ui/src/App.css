@@ -37,6 +37,7 @@
   font-size: 18px;
   text-decoration: none;
   color: white;
+  cursor: pointer;
 }
 
 .NavMenuSelected {
@@ -49,7 +50,7 @@
 }
 
 .NavMenu:hover {
-  color: #127458;
+  color: #f3f3f3;
 }
 
 .TrailerImg {
