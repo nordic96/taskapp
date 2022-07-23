@@ -7,6 +7,7 @@ export interface TaskContent {
     completed: boolean;
     desc: string;
     created: number;
+    due: number;
 }
 
 export interface Task extends TaskContent {

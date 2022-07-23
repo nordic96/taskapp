@@ -19,7 +19,6 @@ const AppRoutes = () => {
                 </header>
                 <Routes>
                     <Route path={Path.Home} element={<Home />} />
-                    <Route path={'/about'} element={<></>} />
                 </Routes>
             </div>
         </Router>

@@ -3,13 +3,17 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
 import { TaskBoxStyle } from '../TaskBox/styles';
-import { isValid, parse } from 'date-fns';
+import { getUnixTime, isValid, parse } from 'date-fns';
 
 import { useAppDispatch, useAppThunkDispatch } from '../../app/hooks';
 import { createTask, TaskActions } from '../../features/tasks/taskReducer';
 
 import { Task } from '../../services/tasks/types';
 
+/**
+ * Task Box Component for creating a new Task with multiple inputs and validation
+ * @returns Task Template Component
+ */
 const TaskTemplate = () => {
     const [dateStr, setDateStr] = useState<string>();
     const [desc, setDesc] = useState<string>();
@@ -45,8 +49,8 @@ const TaskTemplate = () => {
     };
 
     const onSave = (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!desc) return;
-        const newTask: Task = { id: '', desc, completed: false, created: 0 };
+        if (!desc || !dateStr) return;
+        const newTask: Task = { id: '', desc, completed: false, created: 0, due: getUnixTime(parse(dateStr, 'dd-MM-yyyy', new Date())) };
         thunkDispatch(createTask(newTask));
     };
 
@@ -56,7 +60,7 @@ const TaskTemplate = () => {
     };
 
     return (
-        <Box sx={TaskBoxStyle('#333')}>
+        <Box id={'create-task-template'} sx={TaskBoxStyle('#333')}>
             <Box display={'flex'} flexDirection={'column'} gap={2} width={'100%'}>
                 <Box display={'flex'} alignItems={'flex-start'}>
                     <Typography color={'#333'} variant={'body1'}>
@@ -64,29 +68,31 @@ const TaskTemplate = () => {
                     </Typography>
                 </Box>
                 <TextField
+                    size={'small'}
                     fullWidth
                     required
                     error={!validateDescStr()}
-                    id="outlined-required"
+                    id="input-text-desc"
                     label="Description"
                     value={desc}
                     onChange={onChangeDesc}
                 />
                 <TextField
+                    size={'small'}
                     error={!validateDateStr()}
                     fullWidth
                     required
                     value={dateStr}
                     onChange={onChange}
-                    id="outlined-required"
+                    id="input-text-due"
                     label="Due Date dd-MM-yyyy"
                     helperText={!validateDateStr() ? 'Incorrect date format' : ''}
                 />
                 <Box>
-                    <Button disabled={!validateDateStr() || !validateDescStr()} onClick={onSave}>
+                    <Button id={'btn-save-task'} disabled={!validateDateStr() || !validateDescStr()} onClick={onSave}>
                         Save
                     </Button>
-                    <Button onClick={onCancel}>Cancel</Button>
+                    <Button id={'btn-cancel-task'} onClick={onCancel}>Cancel</Button>
                 </Box>
             </Box>
         </Box>

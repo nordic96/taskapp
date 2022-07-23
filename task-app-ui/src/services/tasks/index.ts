@@ -4,6 +4,7 @@ import { Task, TaskRequest } from './types';
 const BASE = '/tasks';
 const URL_CREATE = `${BASE}/action/add`
 const URL_UPDATE = (id: string) => `${BASE}/action/update/${id}`;
+const URL_DELETE = (id: string) => `${BASE}/action/delete/${id}`;
 
 const fetchTask = (): Promise<AxiosResponse<Task[]>> => {
     return axios.get(BASE);
@@ -17,6 +18,10 @@ const updateTask = (task: Task) => {
     return axios.put(URL_UPDATE(task.id), task);
 };
 
-const taskService = { fetchTask, createTask, updateTask };
+const deleteTask = (id: string) => {
+    return axios.delete(URL_DELETE(id));
+};
+
+const taskService = { fetchTask, createTask, updateTask, deleteTask };
 
 export default taskService;

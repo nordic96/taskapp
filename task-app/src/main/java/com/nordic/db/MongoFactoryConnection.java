@@ -13,6 +13,10 @@ import com.nordic.db.configuration.MongoDBConnection;
 
 import java.util.Arrays;
 
+/**
+ * MongoDB Connection Factory Class
+ * @returns creates and connects client instance
+ */
 public class MongoFactoryConnection {
     private static final Logger logger = LoggerFactory.getLogger(MongoFactoryConnection.class);
     private MongoDBConnection mongoConnection;
