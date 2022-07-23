@@ -5,16 +5,21 @@ describe('Testing Home Page', () => {
     cy.intercept('POST', '/tasks/action/add').as('createTask');
   });
 
-  it('passes fetching tasks', () => {
+  it('passes rendering necessary components', () => {
     cy.visit('http://localhost:3000');
     cy.get('#task-app-header').should('exist');
 
+    cy.get('#btn-create-task').should('exist');
+    cy.get('#label-total').should('exist');
+    cy.get('#label-completed').should('exist');
+    cy.get('#label-pending').should('exist');
+  });
+
+  it('passes fetching tasks', () => {
     cy.wait('@fetchTasks').then((intercept) => {
       expect(intercept.response?.statusCode).equal(200);
       expect(intercept.response?.body).not.to.be.NaN;
     });
-
-    cy.get('#btn-create-task').should('exist');
   });
 
   it('passes creating and deleting a task', () => {

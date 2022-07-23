@@ -1,2 +1,2 @@
-export const TaskCompletedColor = '#198754';
+export const TaskCompletedColor = '#04c38d';
 export const TaskIncompleteColor = '#f0ad4e';

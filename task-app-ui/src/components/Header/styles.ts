@@ -4,8 +4,9 @@ export const HeaderStyles: SxProps = {
     padding: '8px 16px',
     display: 'flex',
     gap: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#2f4858',
+    justifyContent: 'center',
+    backgroundColor: '#24292f',
+    height: 70,
 };

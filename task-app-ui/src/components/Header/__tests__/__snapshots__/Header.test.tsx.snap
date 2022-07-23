@@ -3,24 +3,15 @@
 exports[`Testing Header Component Should match with snapshot 1`] = `
 LoadedCheerio {
   "0": <header
-    class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed css-ir3xkf-MuiPaper-root-MuiAppBar-root"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed css-vls1af-MuiPaper-root-MuiAppBar-root"
     id="task-app-header"
   >
-    <div
-      class="MuiBox-root css-u4p24i"
+    <p
+      class="MuiTypography-root MuiTypography-body1 NavMenu css-l6pxfq-MuiTypography-root"
+      id="nav-home"
     >
-      <img
-        alt="logo"
-        class="App-logo"
-        style="width:56px;height:56px"
-      />
-      <p
-        class="MuiTypography-root MuiTypography-body1 NavMenu css-l6pxfq-MuiTypography-root"
-        id="nav-home"
-      >
-        Task Management
-      </p>
-    </div>
+      Task Management
+    </p>
   </header>,
   "_root": LoadedCheerio {
     "0": Document {
